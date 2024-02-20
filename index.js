@@ -6,11 +6,11 @@ const errorHandler = require('./middlewares/errorHandler');
 
 const cors = require("cors");
 const helmet = require('helmet');
-const xss = require('express-xss-sanitizer');
+const {xss} = require('express-xss-sanitizer');
 const app = express();
 const rateLimit = require('express-rate-limit');
 require("dotenv").config();
-const PORT = 3000;
+
 const authRouter = require("./routes/authRoute");
 const productRouter = require("./routes/productRoute");
 const fashionRouter = require('./routes/fashionModel');
@@ -71,12 +71,12 @@ app.use('/api/upload', uploadRouter);
 app.use(notFound);
 app.use(errorHandler);
 
-
+const port = process.env.PORT || 3000;
 const Start = async ()=>{
   try{
       await connectDB(process.env.MONGODB_URL);
       console.log('Connected Successfuly to the DB');
-      app.listen(PORT,console.log(`Server started on ${PORT}`));
+      app.listen(port,console.log(`Server started on Port: ${port}`));
   } catch (error) {
       console.log(error);
   }
