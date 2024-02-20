@@ -3,7 +3,12 @@ const express = require("express");
 const connectDB = require("./config/dbConnect");
 const notFound= require("./middlewares/not-found");
 const errorHandler = require('./middlewares/errorHandler');
+
+const cors = require("cors");
+const helmet = require('helmet');
+const xss = require('express-xss-sanitizer');
 const app = express();
+const rateLimit = require('express-rate-limit');
 require("dotenv").config();
 const PORT = 3000;
 const authRouter = require("./routes/authRoute");
@@ -19,14 +24,34 @@ const resellRouter = require('./routes/resellRoute');
 const uploadRouter = require("./routes/uploadRoute");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
-const cors = require("cors");
 
+const swaggerUI = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./swagger.yaml');
 
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000,
+	limit: 100,
+	standardHeaders: 'draft-7', 
+	legacyHeaders: false, 
+	
+});
+
+app.use(limiter);
 app.use(morgan("dev"));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(xss());
+app.use(helmet());
+
+
+
+app.get('/', (req, res)=>{
+  res.send('<h1>Welcome to Sneaker Store Api</h1><a href="/api-docs">Documentation</a>');
+})
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 
 app.use("/api/user", authRouter);

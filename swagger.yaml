@@ -1,0 +1,1620 @@
+openapi: 3.0.0
+info:
+  title: Sneaker store
+  contact:
+    name: Glenn Mark
+    email: gmark1586@gmail.com
+  version: '1.0'
+servers:
+- url: https://sneakers-production-9920.up.railway.app/api
+  variables: {}
+- url: https://localhost:5000/api/product
+  variables: {}
+paths:
+  /user/register:
+    post:
+      tags:
+      - Users
+      summary: Create User
+      operationId: CreateUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateUserRequest'
+              - example:
+                  username: glen
+                  email: gmark1586@gmail.com
+                  password: 12glen
+            example:
+              username: glen
+              email: gmark1586@gmail.com
+              password: 12glen
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /user/admin-login:
+    post:
+      tags:
+      - Users
+      summary: Login User
+      operationId: LoginUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/LoginUserRequest'
+              - example:
+                  email: gmark1586@gmail.com
+                  password: 12345glen
+            example:
+              email: gmark1586@gmail.com
+              password: 12345glen
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /user/all-users:
+    get:
+      tags:
+      - Users
+      summary: Get All Users
+      operationId: GetAllUsers
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /user/{userId}:
+    get:
+      tags:
+      - Users
+      summary: Get A User
+      operationId: GetAUser
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the user to get
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+    delete:
+      tags:
+      - Users
+      summary: Delete User
+      operationId: DeleteUser
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the user to delete
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /user/edit-user:
+    put:
+      tags:
+      - Users
+      summary: Update User
+      operationId: UpdateUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateUserRequest'
+              - example:
+                  firstname: otswere
+                  lastname: brin
+                  email: tswere@gmail.com
+            example:
+              firstname: otswere
+              lastname: brin
+              email: tswere@gmail.com
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /user/refresh:
+    get:
+      tags:
+      - Users
+      summary: Refresh
+      operationId: Refresh
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /user/logout:
+    get:
+      tags:
+      - Users
+      summary: Logout User
+      operationId: LogoutUser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /user/password:
+    put:
+      tags:
+      - Users
+      summary: Change Password
+      operationId: ChangePassword
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ChangePasswordRequest'
+              - example:
+                  password: 123brian
+            example:
+              password: 123brian
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /user/forgot-password-token:
+    post:
+      tags:
+      - Users
+      summary: Forgot Password Token
+      operationId: ForgotPasswordToken
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ForgotPasswordTokenRequest'
+              - example:
+                  email: gmark1586@gmail.com
+            example:
+              email: gmark1586@gmail.com
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /user/reset-password/{token}:
+    put:
+      tags:
+      - Users
+      summary: Reset Password
+      operationId: ResetPassword
+      parameters:
+        - in: path
+          name: token
+          schema:
+            type: integer
+          required: true
+          description: Token generated used to reset Password
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ResetPasswordRequest'
+              - example:
+                  password: 12345glen
+            example:
+              password: 12345glen
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /sneakers:
+    post:
+      tags:
+      - Sneakers
+      summary: Create Sneaker
+      operationId: CreateSneaker
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateSneakerRequest'
+              - example:
+                  title: Adidas
+                  brand: 65cfc5f2a1e9f2ab1092d820
+                  color: 65cfc81864bbc5ba8e6833ea
+                  fashionModel: 65cfcbff32d2b07fb54b1887
+                  targetAudience: 65cfd9118333c8cdbdd2131f
+                  colorway: black
+                  releaseDate: 2025-01-18
+                  resell: false
+                  sneakerStores:
+                  - store: 65cfd67eded4a41cb8b3c300
+                    price: '2000'
+                    availableSizes:
+                    - 65cfcf7177060af5eb65cd53
+                    - 65cfcf6477060af5eb65cd4f
+                  - store: 65cfd6c2ded4a41cb8b3c304
+                    price: '1500'
+                    availableSizes:
+                    - 65cfcf7177060af5eb65cd53
+                  judgement: 8/10
+            example:
+              title: Adidas
+              brand: 65cfc5f2a1e9f2ab1092d820
+              color: 65cfc81864bbc5ba8e6833ea
+              fashionModel: 65cfcbff32d2b07fb54b1887
+              targetAudience: 65cfd9118333c8cdbdd2131f
+              colorway: black
+              releaseDate: 2025-01-18
+              resell: false
+              sneakerStores:
+              - store: 65cfd67eded4a41cb8b3c300
+                price: '2000'
+                availableSizes:
+                - 65cfcf7177060af5eb65cd53
+                - 65cfcf6477060af5eb65cd4f
+              - store: 65cfd6c2ded4a41cb8b3c304
+                price: '1500'
+                availableSizes:
+                - 65cfcf7177060af5eb65cd53
+              judgement: 8/10
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+    get:
+      tags:
+      - Sneakers
+      summary: Get All Sneakers
+      operationId: GetAllSneakers
+      parameters:
+      - name: fields
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: title,releaseDate
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /sneakers/{sneakerId}:
+    get:
+      tags:
+      - Sneakers
+      summary: Get A Sneaker
+      operationId: GetASneaker
+      parameters:
+        - in: path
+          name: sneakerId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the sneaker to get
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /sneakers/{idSneaker}:
+    patch:
+      tags:
+      - Sneakers
+      summary: Update A sneaker
+      operationId: UpdateAsneaker
+      parameters:
+        - in: path
+          name: idSneaker
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the user to get
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateAsneakerRequest'
+              - example:
+                  color: 65d24e3408c565053772fa1a
+            example:
+              color: 65d24e3408c565053772fa1a
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /{sneaker-Id}:
+    delete:
+      tags:
+      - Sneakers
+      summary: Delete A Sneaker
+      operationId: DeleteASneaker
+      parameters:
+        - in: path
+          name: sneaker-Id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the sneaker to delete
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://localhost:5000/api/product
+        variables: {}
+  /upload/{id-sneaker}:
+    put:
+      tags:
+      - Sneakers
+      summary: Upload Sneaker image
+      operationId: UploadSneakerimage
+      parameters:
+        - in: path
+          name: id-sneaker
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the sneaker to Upload photo
+      requestBody:
+        content:
+          multipart/form-data:
+            encoding: {}
+            schema:
+              required:
+              - images
+              type: object
+              properties:
+                images:
+                  type: string
+                  format: binary
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /sneakers/search:
+    get:
+      tags:
+      - Sneakers
+      summary: Search for sneaker
+      operationId: Searchforsneaker
+      parameters:
+      - name: search
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: vans
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /releases:
+    get:
+      tags:
+      - Sneakers
+      summary: Get All Releases
+      operationId: GetAllReleases
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /resell:
+    get:
+      tags:
+      - Sneakers
+      summary: Get All Resells
+      operationId: GetAllResells
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /brand:
+    post:
+      tags:
+      - Brand
+      summary: Create Brand
+      operationId: CreateBrand
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateBrandRequest'
+              - example:
+                  title: Balenciaga
+                  link: balenciaga.com
+            example:
+              title: Balenciaga
+              link: balenciaga.com
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+    get:
+      tags:
+      - Brand
+      summary: Get All brands
+      operationId: GetAllbrands
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /brand/{brandId}:
+    put:
+      tags:
+      - Brand
+      summary: Update Brand
+      operationId: UpdateBrand
+      parameters:
+        - in: path
+          name: brandId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the brand to update
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateBrandRequest'
+              - example:
+                  link: vansshoe.com
+            example:
+              link: vansshoe.com
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /brand/{brand-Id}:
+    delete:
+      tags:
+      - Brand
+      summary: Delete brand
+      operationId: Deletebrand
+      parameters:
+        - in: path
+          name: brand-Id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the Brand to delete
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /brand/{idbrand}:
+    get:
+      tags:
+      - Brand
+      summary: Get A brand
+      operationId: GetAbrand
+      parameters:
+        - in: path
+          name: idbrand
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the brand to get
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /color:
+    post:
+      tags:
+      - Color
+      summary: Create Color
+      operationId: CreateColor
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateColorRequest'
+              - example:
+                  title: orange6
+            example:
+              title: orange6
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+    get:
+      tags:
+      - Color
+      summary: Get All Colors
+      operationId: GetAllColors
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /color/{colorId}:
+    put:
+      tags:
+      - Color
+      summary: Update Color
+      operationId: UpdateColor
+      parameters:
+        - in: path
+          name: colorId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the color to update
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateColorRequest'
+              - example:
+                  title: green
+            example:
+              title: green
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+    delete:
+      tags:
+      - Color
+      summary: Delete Color
+      operationId: DeleteColor
+      parameters:
+        - in: path
+          name: colorId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the color to delete
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /color/{color-Id}:
+    get:
+      tags:
+      - Color
+      summary: Get A Color
+      operationId: GetAColor
+      parameters:
+        - in: path
+          name: color-Id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the color to get
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /fashion-model:
+    post:
+      tags:
+      - Fashion Model
+      summary: Create Model
+      operationId: CreateModel
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateModelRequest'
+              - example:
+                  fashionmodel: Vans Old Skool
+                  link: vans.com
+            example:
+              fashionmodel: Vans Old Skool
+              link: vans.com
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+    get:
+      tags:
+      - Fashion Model
+      summary: Get All Models
+      operationId: GetAllModels
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /fashion-model/{model-Id}:
+    get:
+      tags:
+      - Fashion Model
+      summary: Get A model
+      operationId: GetAmodel
+      parameters:
+        - in: path
+          name: model-Id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the Fashion Model to get
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+    put:
+      tags:
+      - Fashion Model
+      summary: Update Model
+      operationId: UpdateModel
+      parameters:
+        - in: path
+          name: model-Id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the Fashion Model to update
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateModelRequest'
+              - example:
+                  fashionmodel: adidas adimak
+            example:
+              fashionmodel: adidas adimak
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+    delete:
+      tags:
+      - Fashion Model
+      summary: Delete Model
+      operationId: DeleteModel
+      parameters:
+        - in: path
+          name: model-Id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the Fashion Model to delete
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /size:
+    post:
+      tags:
+      - Size
+      summary: Create Size
+      operationId: CreateSize
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateSizeRequest'
+              - example:
+                  size: '41'
+            example:
+              size: '41'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+    get:
+      tags:
+      - Size
+      summary: Get All sizes
+      operationId: GetAllsizes
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /size/{sizeId}:
+    get:
+      tags:
+      - Size
+      summary: Get A size
+      operationId: GetAsize
+      parameters:
+        - in: path
+          name: sizeId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the Size to get
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+    put:
+      tags:
+      - Size
+      summary: Update Size
+      operationId: UpdateSize
+      parameters:
+        - in: path
+          name: sizeId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the Size to put
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateSizeRequest'
+              - example:
+                  size: '20'
+            example:
+              size: '20'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+    delete:
+      tags:
+      - Size
+      summary: Delete Size
+      operationId: DeleteSize
+      parameters:
+        - in: path
+          name: sizeId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the Size to delete
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /store:
+    post:
+      tags:
+      - Store
+      summary: Create Stores
+      operationId: CreateStores
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateStoresRequest'
+              - example:
+                  name: jumia
+                  link: jumia.com
+                  logo: jumia
+            example:
+              name: jumia
+              link: jumia.com
+              logo: jumia
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+    get:
+      tags:
+      - Store
+      summary: Get All Stores
+      operationId: GetAllStores
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /store/{storeId}:
+    get:
+      tags:
+      - Store
+      summary: Get A Store
+      operationId: GetAStore
+      parameters:
+        - in: path
+          name: storeId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the store to get
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+    put:
+      tags:
+      - Store
+      summary: Update Store
+      operationId: UpdateStore
+      parameters:
+        - in: path
+          name: storeId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the store to put/update
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateStoreRequest'
+              - example:
+                  name: jiji
+            example:
+              name: jiji
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+    delete:
+      tags:
+      - Store
+      summary: Delete Store
+      operationId: DeleteStore
+      parameters:
+        - in: path
+          name: storeId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the store to delete
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /target-audience:
+    post:
+      tags:
+      - Target Audience
+      summary: Create target Audience
+      operationId: CreatetargetAudience
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreatetargetAudienceRequest'
+              - example:
+                  target: Babies
+            example:
+              target: Babies
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+    get:
+      tags:
+      - Target Audience
+      summary: Get All audiences
+      operationId: GetAllaudiences
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /target-audience/{audienceId}:
+    get:
+      tags:
+      - Target Audience
+      summary: Get A Single target
+      operationId: GetASingletarget
+      parameters:
+        - in: path
+          name: audienceId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the Target Audience to get
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+    put:
+      tags:
+      - Target Audience
+      summary: Update Audience
+      operationId: UpdateAudience
+      parameters:
+        - in: path
+          name: audienceId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the Target Audience to put
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateAudienceRequest'
+              - example:
+                  target: Men and Women
+            example:
+              target: Men and Women
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+  /target-audience/{audience-Id}:
+    delete:
+      tags:
+      - Target Audience
+      summary: Delete target Audience
+      operationId: DeletetargetAudience
+      parameters:
+        - in: path
+          name: audience-Id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the Target Audience to delete
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+      servers:
+      - url: https://sneakers-production-9920.up.railway.app/api
+        variables: {}
+components:
+  schemas:
+    CreateUserRequest:
+      title: CreateUserRequest
+      required:
+      - username
+      - email
+      - password
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        username: glen
+        email: gmark1586@gmail.com
+        password: 12glen
+    LoginUserRequest:
+      title: LoginUserRequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: gmark1586@gmail.com
+        password: 12345glen
+    UpdateUserRequest:
+      title: UpdateUserRequest
+      required:
+      - firstname
+      - lastname
+      - email
+      type: object
+      properties:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+      example:
+        firstname: otswere
+        lastname: brin
+        email: tswere@gmail.com
+    ChangePasswordRequest:
+      title: ChangePasswordRequest
+      required:
+      - password
+      type: object
+      properties:
+        password:
+          type: string
+      example:
+        password: 123brian
+    ForgotPasswordTokenRequest:
+      title: ForgotPasswordTokenRequest
+      required:
+      - email
+      type: object
+      properties:
+        email:
+          type: string
+      example:
+        email: gmark1586@gmail.com
+    ResetPasswordRequest:
+      title: ResetPasswordRequest
+      required:
+      - password
+      type: object
+      properties:
+        password:
+          type: string
+      example:
+        password: 12345glen
+    CreateSneakerRequest:
+      title: CreateSneakerRequest
+      required:
+      - title
+      - brand
+      - color
+      - fashionModel
+      - targetAudience
+      - colorway
+      - releaseDate
+      - resell
+      - sneakerStores
+      - judgement
+      type: object
+      properties:
+        title:
+          type: string
+        brand:
+          type: string
+        color:
+          type: string
+        fashionModel:
+          type: string
+        targetAudience:
+          type: string
+        colorway:
+          type: string
+        releaseDate:
+          type: string
+        resell:
+          type: boolean
+        sneakerStores:
+          type: array
+          items:
+            $ref: '#/components/schemas/SneakerStore'
+          description: ''
+        judgement:
+          type: string
+      example:
+        title: Adidas
+        brand: 65cfc5f2a1e9f2ab1092d820
+        color: 65cfc81864bbc5ba8e6833ea
+        fashionModel: 65cfcbff32d2b07fb54b1887
+        targetAudience: 65cfd9118333c8cdbdd2131f
+        colorway: black
+        releaseDate: 2025-01-18
+        resell: false
+        sneakerStores:
+        - store: 65cfd67eded4a41cb8b3c300
+          price: '2000'
+          availableSizes:
+          - 65cfcf7177060af5eb65cd53
+          - 65cfcf6477060af5eb65cd4f
+        - store: 65cfd6c2ded4a41cb8b3c304
+          price: '1500'
+          availableSizes:
+          - 65cfcf7177060af5eb65cd53
+        judgement: 8/10
+    SneakerStore:
+      title: SneakerStore
+      required:
+      - store
+      - price
+      - availableSizes
+      type: object
+      properties:
+        store:
+          type: string
+        price:
+          type: string
+        availableSizes:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        store: 65cfd67eded4a41cb8b3c300
+        price: '2000'
+        availableSizes:
+        - 65cfcf7177060af5eb65cd53
+        - 65cfcf6477060af5eb65cd4f
+    UpdateAsneakerRequest:
+      title: UpdateAsneakerRequest
+      required:
+      - color
+      type: object
+      properties:
+        color:
+          type: string
+      example:
+        color: 65d24e3408c565053772fa1a
+    CreateBrandRequest:
+      title: CreateBrandRequest
+      required:
+      - title
+      - link
+      type: object
+      properties:
+        title:
+          type: string
+        link:
+          type: string
+      example:
+        title: Balenciaga
+        link: balenciaga.com
+    UpdateBrandRequest:
+      title: UpdateBrandRequest
+      required:
+      - link
+      type: object
+      properties:
+        link:
+          type: string
+      example:
+        link: vansshoe.com
+    CreateColorRequest:
+      title: CreateColorRequest
+      required:
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+      example:
+        title: orange6
+    UpdateColorRequest:
+      title: UpdateColorRequest
+      required:
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+      example:
+        title: green
+    CreateModelRequest:
+      title: CreateModelRequest
+      required:
+      - fashionmodel
+      - link
+      type: object
+      properties:
+        fashionmodel:
+          type: string
+        link:
+          type: string
+      example:
+        fashionmodel: Vans Old Skool
+        link: vans.com
+    UpdateModelRequest:
+      title: UpdateModelRequest
+      required:
+      - fashionmodel
+      type: object
+      properties:
+        fashionmodel:
+          type: string
+      example:
+        fashionmodel: adidas adimak
+    CreateSizeRequest:
+      title: CreateSizeRequest
+      required:
+      - size
+      type: object
+      properties:
+        size:
+          type: string
+      example:
+        size: '41'
+    UpdateSizeRequest:
+      title: UpdateSizeRequest
+      required:
+      - size
+      type: object
+      properties:
+        size:
+          type: string
+      example:
+        size: '20'
+    CreateStoresRequest:
+      title: CreateStoresRequest
+      required:
+      - name
+      - link
+      - logo
+      type: object
+      properties:
+        name:
+          type: string
+        link:
+          type: string
+        logo:
+          type: string
+      example:
+        name: jumia
+        link: jumia.com
+        logo: jumia
+    UpdateStoreRequest:
+      title: UpdateStoreRequest
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+      example:
+        name: jiji
+    CreatetargetAudienceRequest:
+      title: CreatetargetAudienceRequest
+      required:
+      - target
+      type: object
+      properties:
+        target:
+          type: string
+      example:
+        target: Babies
+    UpdateAudienceRequest:
+      title: UpdateAudienceRequest
+      required:
+      - target
+      type: object
+      properties:
+        target:
+          type: string
+      example:
+        target: Men and Women
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: Users
+- name: Sneakers
+- name: Brand
+  description: Create,Update,Delete,Get brands
+- name: Color
+- name: Fashion Model
+- name: Size
+- name: Store
+- name: Target Audience
