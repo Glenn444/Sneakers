@@ -10,7 +10,7 @@ const validateMongoDbId = require("../utils/validateMongodbId");
 const { generateRefreshToken } = require("../config/refreshtoken");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
-const sendEmail = require("./emailCtrl");
+
 
 
 // Create a User ----------------------------------------------
@@ -190,16 +190,6 @@ const forgotPasswordToken = asyncHandler(async (req, res) => {
   try {
     const token = await user.createPasswordResetToken();
     await user.save();
-    const hostingUrl = process.env.HOSTING_URL;
-    const resetURL = `${hostingUrl}/api/user/reset-password/${token}`;
-    const emailContent = `Hi, Please follow this link to reset Your Password. This link is valid for 10 minutes. <a href='${resetURL}'>Click Here</>`;
-    const data = {
-      to: email,
-      text: "Hey User",
-      subject: "Forgot Password Link",
-      htm: emailContent,
-    };
-    sendEmail(data);
     res.status(StatusCodes.OK).json({token});
   } catch (error) {
     throw new Error(error);
