@@ -29,11 +29,13 @@ const swaggerUI = require('swagger-ui-express');
 const YAML = require('yamljs');
 const swaggerDocument = YAML.load('./swagger.yaml');
 
+app.set('trust proxy', 1);
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000,
 	limit: 100,
 	standardHeaders: 'draft-7', 
 	legacyHeaders: false, 
+  message: 'Too many requests sent by this ip, please try again in 15 minutes'
 	
 });
 
@@ -49,7 +51,7 @@ app.use(helmet());
 
 
 app.get('/', (req, res)=>{
-  res.send('<h1>Welcome to Sneaker Store Api</h1><a href="/api-docs">Documentation</a>');
+  res.send('<h1>Welcome to Sneaker Store Api</h1><a href="/api-docs">Check Documentation</a>');
 })
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
