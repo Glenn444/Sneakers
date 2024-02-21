@@ -17,7 +17,25 @@ paths:
       - Users
       summary: Create User
       operationId: CreateUser
-      parameters: []
+      parameters:
+        - name: username
+          in: query
+          description: The user name for login
+          required: false
+          schema:
+            type: string
+        - name: email
+          in: query
+          description: The email for login
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: The user password for login
+          required: true
+          schema:
+            type: string
       requestBody:
         description: ''
         content:
@@ -49,7 +67,19 @@ paths:
       - Users
       summary: Login User
       operationId: LoginUser
-      parameters: []
+      parameters:
+        - name: email
+          in: query
+          description: The user name for login
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: The password for login in clear text
+          required: true
+          schema:
+            type: string
       requestBody:
         description: ''
         content:
@@ -62,7 +92,7 @@ paths:
                   password: 12345glen
             example:
               email: gmark1586@gmail.com
-              password: 12345glen
+              password: 12glen
         required: true
       responses:
         '200':
@@ -205,7 +235,13 @@ paths:
       - Users
       summary: Change Password
       operationId: ChangePassword
-      parameters: []
+      parameters:
+        - name: Password
+          in: query
+          description: The password to reset
+          required: true
+          schema:
+            type: string
       requestBody:
         description: ''
         content:
@@ -233,8 +269,15 @@ paths:
       tags:
       - Users
       summary: Forgot Password Token
+      description: Token generated here is used to reset password
       operationId: ForgotPasswordToken
-      parameters: []
+      parameters:
+        - name: email
+          in: query
+          description: The email for the token
+          required: true
+          schema:
+            type: string
       requestBody:
         description: ''
         content:
@@ -360,16 +403,69 @@ paths:
       - Sneakers
       summary: Get All Sneakers
       operationId: GetAllSneakers
+      description: Leaving blank should return all products
       parameters:
       - name: fields
         in: query
-        description: ''
-        required: true
+        description: 'Fields to limit by: title,releaseDate,resell,sneakerStores,color,targetAudience, fashionModel,brand,images'
+        required: false
         style: form
         explode: true
         schema:
           type: string
-          example: title,releaseDate
+          example: title,sneakerStores
+      - name: priceRange
+        in: query
+        description: 'Query by price using price=amount,price>amount,price>=amount,price<amount,price<=amount'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: price=2000
+      - name: sort
+        in: query
+        description: 'Sort using price.highToLow or price.lowToHigh or createdAt'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+          example: [price.highToLow,createdAt]
+      - name: brand
+        in: query
+        description: 'Fiter by brand Id'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: color
+        in: query
+        description: 'Fiter by color Id'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: fashion
+        in: query
+        description: 'Filter by Fashion Id'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: target
+        in: query
+        description: 'Filter by Target Audience Id'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         '200':
           description: ''
