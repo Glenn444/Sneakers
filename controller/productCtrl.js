@@ -4,7 +4,6 @@ const slugify = require("slugify");
 const validateMongoDbId = require("../utils/validateMongodbId");
 const { BadRequestError, NotFoundError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
-const cloudinary = require("cloudinary");
 const { cloudinaryUploadImg } = require("../utils/cloudinary");
 
 const createProduct = asyncHandler(async (req, res) => {
@@ -59,13 +58,6 @@ const getaProduct = asyncHandler(async (req, res) => {
 const getAllProduct = asyncHandler(async (req, res, next) => {
   try {
     // Filtering
-    const filters = {
-      brand: req.query.brand,
-      fashionModel: req.query.fashion,
-      targetAudience: req.query.target,
-      color: req.query.color,
-      priceRange: req.query.price,
-    };
     const { brand, fashion, target, color, priceRange } = req.query;
     const filterObj = {};
 
@@ -192,38 +184,6 @@ const getAllProduct = asyncHandler(async (req, res, next) => {
   }
 });
 
-// const uploadImages = asyncHandler(async (req, res) => {
-//   const { id } = req.params;
-//   validateMongoDbId(id);
-//   try {
-//     const uploader = (path) => cloudinaryUploadImg(path, "images");
-
-//     console.log(req.file);
-//     const urls = [];
-//     const files = req.files;
-
-//     for (const file of files) {
-//       const { path } = file;
-//       const newPath = await uploader(path);
-//       urls.push(newPath);
-//       fs.unlinkSync(path);
-//     }
-//     const sneaker = await Product.findByIdAndUpdate(
-//       id,
-//       {
-//         images: urls.map((file) => {
-//           return file;
-//         }),
-//       },
-//       {
-//         new: true,
-//       }
-//     );
-//     res.status(StatusCodes.ACCEPTED).json({ sneaker });
-//   } catch (error) {
-//     throw new Error(error.message);
-//   }
-// });
 
 module.exports = {
   createProduct,
